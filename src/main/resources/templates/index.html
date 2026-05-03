@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formula 1 — Live Stats & News</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Підключення зовнішнього файлу CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <div class="nav-logo">F1 <span>PULSE</span></div>
+    <ul class="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Tickets</a></li>
+        <li><a href="#">Drivers</a></li>
+        <li><a href="#">Teams</a></li>
+        <li><a href="#">Calendar</a></li>
+    </ul>
+    <button class="btn-signin" onclick="openModal('login')">Sign In</button>
+</nav>
+
+<div class="hero">
+    <div class="hero-img">
+        <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 250 Q200 80 450 70 Q700 60 900 180 L900 300 L0 300 Z" fill="rgba(225,6,0,0.08)"/>
+            <path d="M50 260 Q250 110 450 100 Q650 90 870 200" fill="none" stroke="rgba(225,6,0,0.25)" stroke-width="3"/>
+            <text x="450" y="190" text-anchor="middle" font-family="Arial Black" font-weight="900" font-size="180" fill="rgba(255,255,255,0.03)">F1</text>
+        </svg>
+    </div>
+    <div class="hero-label">Formula 1 — Live Stats &amp; News</div>
+</div>
+
+<div class="wrap">
+    <h2>Latest News</h2>
+    <div class="news-grid">
+        <div class="news-card">
+            <div class="thumb ph1">🏎️</div>
+            <p>Grosjean to drive F1 car for first time since Bahrain crash</p>
+        </div>
+        <div class="news-card">
+            <div class="thumb ph2">🐱</div>
+            <p>The unmissable off-track moments of Baku 2025</p>
+        </div>
+        <div class="news-card">
+            <div class="thumb ph3">🏆</div>
+            <p>F3 announces €1 million prize fund for top-five drivers</p>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-row">
+    <div>
+        <div class="widget-label">Top Driver</div>
+        <div class="driver-box">
+            <div class="num">1</div>
+            <div style="position:relative;z-index:1">Max Verstappen</div>
+        </div>
+    </div>
+
+    <div>
+        <div class="widget-label">Top Team</div>
+        <div class="team-card">
+            <div class="team-logo">RBR</div>
+            <div>
+                <div class="team-name">Red Bull Racing</div>
+                <div class="team-pts">367 points · Season 2025</div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="widget-label">Grand Prix Calendar</div>
+        <div class="cal-card">
+            <div class="cal-img">🇨🇦</div>
+            <div class="cal-badge">Round 08</div>
+            <div class="cal-info">Canadian Grand Prix</div>
+            <div class="cal-date">15 – 17 Jun 2025 · Montréal</div>
+        </div>
+    </div>
+</div>
+
+<div class="social-bar">
+    <a href="#" title="YouTube"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg></a>
+    <a href="#" title="Instagram"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.2.1 4.7 1.7 4.8 4.8.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.1-1.6 4.7-4.8 4.8-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1C3.9 21.4 2.4 19.9 2.3 16.8 2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 4.1 3.9 2.5 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9C.3 21.3 2.7 23.7 7.1 23.9 8.3 24 8.7 24 12 24s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9C23.7 2.7 21.3.3 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4A6.2 6.2 0 0 0 12 5.8zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg></a>
+    <a href="#" title="X / Twitter"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 1.5h3.4l-7.4 8.5L23 22.5h-6.8l-5.3-7-6.1 7H1.4l7.9-9L1 1.5h7l4.8 6.4zM17.1 20.6h1.9L7 3.4H5l12.1 17.2z"/></svg></a>
+    <a href="#" title="TV"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5v2h8v-2h5a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 14H3V5h18v12z"/></svg></a>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="bgClose(event)">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="form-tabs">
+            <button class="ftab active" onclick="switchTab('login')">Sign In</button>
+            <button class="ftab" onclick="switchTab('register')">Register</button>
+        </div>
+        <div class="pane active" id="pane-login">
+            <label>Email</label><input type="email" placeholder="you@email.com">
+            <label>Password</label><input type="password" placeholder="••••••••">
+            <button class="btn-sub">Sign In</button>
+        </div>
+        <div class="pane" id="pane-register">
+            <label>Name</label><input type="text" placeholder="Your name">
+            <label>Email</label><input type="email" placeholder="you@email.com">
+            <label>Password</label><input type="password" placeholder="Min. 8 characters">
+            <button class="btn-sub">Register</button>
+        </div>
+    </div>
+</div>
+
+<!-- Підключення зовнішнього файлу JS -->
+<script src="script.js"></script>
+</body>
+</html>
