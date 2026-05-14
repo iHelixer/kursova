@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — F1 Pulse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f0ede8; font-family: 'Inter', sans-serif; color: #111; min-height: 100vh; }
+
+        /* NAV */
+        nav {
+          background: #111; display: flex; align-items: center;
+          justify-content: space-between; padding: 0 40px; height: 58px;
+          position: sticky; top: 0; z-index: 100;
+        }
+        .nav-logo { font-size: 22px; font-weight: 900; color: #e10600; letter-spacing: -1px; text-decoration: none; }
+        .nav-logo span { color: #fff; font-weight: 500; font-size: 14px; margin-left: 6px; letter-spacing: 2px; }
+        .nav-right { display: flex; align-items: center; gap: 14px; }
+        .admin-badge { background: #e10600; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 2px; padding: 4px 12px; border-radius: 3px; text-transform: uppercase; }
+        .btn-out { color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 7px 18px; background: transparent; border: 1.5px solid rgba(255,255,255,0.3); border-radius: 3px; cursor: pointer; transition: all 0.2s; text-decoration: none;}
+        .btn-out:hover { background: #fff; color: #111; }
+
+        /* LAYOUT */
+        .layout { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 240px 1fr; gap: 28px; padding: 36px 32px; align-items: start; }
+
+        /* SIDEBAR */
+        .sidebar { display: flex; flex-direction: column; gap: 14px; }
+
+        .admin-card { background: #111; color: #fff; border-radius: 8px; overflow: hidden; }
+        .admin-card-top { background: linear-gradient(135deg, #1a1a1a, #333); padding: 24px 20px; border-bottom: 2px solid #e10600; }
+        .admin-avatar { width: 56px; height: 56px; border-radius: 50%; background: #e10600; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 12px; }
+        .admin-name { font-size: 16px; font-weight: 800; }
+        .admin-role { font-size: 11px; color: #e10600; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
+
+        /* MAIN */
+        .main { display: flex; flex-direction: column; gap: 20px; }
+
+        /* SUMMARY CARDS */
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+        .stat-card { background: #fff; border-radius: 8px; padding: 20px 22px; border-top: 3px solid #e10600; }
+        .stat-card.green { border-top-color: #22a060; }
+        .stat-card.blue  { border-top-color: #0082FA; }
+        .stat-card.gold  { border-top-color: #FFD700; }
+        .sc-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #aaa; margin-bottom: 8px; }
+        .sc-val { font-size: 34px; font-weight: 900; line-height: 1; }
+        .sc-sub { font-size: 12px; color: #888; margin-top: 4px; }
+
+        /* TOOLBAR */
+        .toolbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .toolbar h2 { font-size: 22px; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; flex: 1; }
+
+        /* TABLE */
+        .table-wrap { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+
+        table { width: 100%; border-collapse: collapse; }
+        thead th { background: #111; color: #fff; padding: 13px 18px; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; }
+        thead th:first-child { width: 48px; }
+
+        tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.15s; }
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:hover { background: #fafafa; }
+
+        td { padding: 14px 18px; font-size: 13px; vertical-align: middle; }
+
+        /* avatar cell */
+        .user-cell { display: flex; align-items: center; gap: 12px; }
+        .u-avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: #fff; flex-shrink: 0; }
+        .u-name { font-weight: 700; font-size: 14px; }
+        .u-email { font-size: 11px; color: #999; margin-top: 1px; }
+
+        /* role badge */
+        .role-badge { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; }
+        .role-user  { background: #e8f0ff; color: #1a4fba; }
+        .role-admin { background: #ffe8e8; color: #b00000; }
+
+        /* status dot */
+        .status-dot { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .dot-active  { background: #22a060; }
+
+        /* tickets count */
+        .tickets-num { font-weight: 800; font-size: 15px; }
+        .tickets-num.has { color: #e10600; }
+        .tickets-num.none { color: #ccc; }
+
+        /* action btns */
+        .action-btns { display: flex; gap: 6px; }
+        .btn-action { padding: 5px 12px; border-radius: 3px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; border: none; transition: all 0.15s; }
+        .btn-view   { background: #f0f0f0; color: #555; }
+        .btn-view:hover { background: #111; color: #fff; }
+
+        .empty-row td { text-align: center; padding: 48px; color: #aaa; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}" class="nav-logo">F1 <span>PULSE</span></a>
+    <div class="nav-right">
+        <span class="admin-badge">Admin</span>
+        <a th:href="@{/logout}" class="btn-out">Sign Out</a>
+    </div>
+</nav>
+
+<div class="layout">
+
+    <div class="sidebar">
+        <div class="admin-card">
+            <div class="admin-card-top">
+                <div class="admin-avatar" th:text="${#strings.toUpperCase(#strings.substring(adminUser.firstName,0,1) + #strings.substring(adminUser.lastName,0,1))}">A</div>
+                <div class="admin-name" th:text="${adminUser.firstName + ' ' + adminUser.lastName}">Administrator</div>
+                <div class="admin-role" th:text="${adminUser.role}">Super Admin</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="sc-label">Total Users</div>
+                <div class="sc-val" id="statTotal" th:text="${allUsers.size()}">0</div>
+                <div class="sc-sub">registered</div>
+            </div>
+            <div class="stat-card green">
+                <div class="sc-label">Active Today</div>
+                <div class="sc-val" id="statActive">1</div>
+                <div class="sc-sub">last 24h</div>
+            </div>
+            <div class="stat-card blue">
+                <div class="sc-label">New This Week</div>
+                <div class="sc-val" id="statNew" th:text="${allUsers.size()}">0</div>
+                <div class="sc-sub">registrations</div>
+            </div>
+            <div class="stat-card gold">
+                <div class="sc-label">Tickets Sold</div>
+                <div class="sc-val" id="statTickets" th:text="${totalTicketsSold}">0</div>
+                <div class="sc-sub">total</div>
+            </div>
+        </div>
+
+        <div class="toolbar">
+            <h2>All Users</h2>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>User</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Tickets</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                <tr class="empty-row" th:if="${#lists.isEmpty(allUsers)}">
+                    <td colspan="6" style="text-align: center; padding: 20px;">No users registered yet.</td>
+                </tr>
+
+                <tr th:each="u : ${allUsers}">
+                    <td th:text="${u.id}">1</td>
+
+                    <td class="user-cell">
+                        <div class="u-avatar"
+                             th:style="${u.role == 'ADMIN'} ? 'background: #e10600;' : 'background: #0082FA;'"
+                             th:text="${(u.firstName != null and u.firstName.length() > 0 ? #strings.substring(u.firstName,0,1) : 'U') + (u.lastName != null and u.lastName.length() > 0 ? #strings.substring(u.lastName,0,1) : '')}">
+                        </div>
+                        <div>
+                            <div class="u-name" th:text="${(u.firstName != null ? u.firstName : 'Unknown') + ' ' + (u.lastName != null ? u.lastName : 'User')}">Name</div>
+                            <div class="u-email" th:text="${u.email}">email@mail.com</div>
+                        </div>
+                    </td>
+                    <td>
+                        <span th:class="'role-badge ' + (${u.role == 'ADMIN'} ? 'role-admin' : 'role-user')"
+                              th:text="${u.role}">USER</span>
+                    </td>
+                    <td>
+                        <div class="status-dot"><div class="dot dot-active"></div>Active</div>
+                    </td>
+                    <td>
+                            <span class="tickets-num"
+                                  th:classappend="${u.role == 'ADMIN'} ? 'none' : 'has'"
+                                  th:text="${#lists.size(u.tickets)}">0</span>
+                    </td>
+                    <td>
+                        <div class="action-btns">
+                            <button class="btn-action btn-view">View</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -18,7 +18,6 @@ import java.util.List;
 @Controller
 public class MainController {
 
-    // Підключаємо наші репозиторії для доступу до бази даних
     @Autowired
     private NewsRepository newsRepository;
     @Autowired
@@ -28,61 +27,58 @@ public class MainController {
     @Autowired
     private RaceRepository raceRepository;
 
-    /**
-     * Обробляє GET-запит на головну сторінку ("/").
-     * Метод генерує дані для віджетів "Latest News", "Top Driver" та "Top Team",
-     * які є вихідними для відображення на стартовій сторінці сайту.
-     */
     @GetMapping("/")
     public String homePage(Model model) {
-        // Отримуємо 3 останні новини
         List<News> latestNews = newsRepository.findTop3ByOrderByPublishedDateDesc();
-        // Отримуємо найкращого пілота
         Driver topDriver = driverRepository.findTopByOrderBySeasonPointsDesc();
-        // Отримуємо найкращу команду
         Team topTeam = teamRepository.findTopByOrderByChampionshipPointsDesc();
-        // Отримуємо всі гонки для календаря
         List<Race> calendar = raceRepository.findAll();
 
-        // Передаємо ці дані у HTML-шаблон
         model.addAttribute("newsList", latestNews);
         model.addAttribute("topDriver", topDriver);
         model.addAttribute("topTeam", topTeam);
         model.addAttribute("calendar", calendar);
 
-        // Повертає назву HTML-файлу (наприклад, index.html у папці templates)
         return "index";
     }
 
-    /**
-     * Обробляє запит на сторінку з усіма пілотами.
-     * Завантажує повний список пілотів з БД для загального рейтингу.
-     */
     @GetMapping("/drivers")
     public String driversPage(Model model) {
         List<Driver> allDrivers = driverRepository.findAll();
         model.addAttribute("drivers", allDrivers);
-        return "drivers"; // Повертає шаблон drivers.html
+        return "drivers";
     }
 
-    /**
-     * Обробляє запит на сторінку з усіма командами.
-     * Формує список команд для відображення Кубка конструкторів.
-     */
     @GetMapping("/teams")
     public String teamsPage(Model model) {
         List<Team> allTeams = teamRepository.findAll();
         model.addAttribute("teams", allTeams);
-        return "teams"; // Повертає шаблон teams.html
+        return "teams";
     }
 
-    /**
-     * Обробляє запит на сторінку купівлі квитків.
-     */
     @GetMapping("/tickets")
     public String ticketsPage(Model model) {
         List<Race> upcomingRaces = raceRepository.findAll();
         model.addAttribute("races", upcomingRaces);
-        return "tickets"; // Повертає шаблон tickets.html
+        return "tickets";
     }
+
+    @GetMapping("/calendar")
+    public String calendarPage(Model model) {
+        return "calendar";
+    }
+
+
+    @GetMapping("/driverprofile")
+    public String driverProfile(Model model) {
+        return "driverprofile";
+    }
+
+    @GetMapping("/teamprofile")
+    public String teamProfile(Model model) {
+        return "teamprofile";
+    }
+
+
+
 }

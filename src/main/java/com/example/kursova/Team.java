@@ -10,7 +10,7 @@ public class Team {
     private Long id;
 
     private String name;
-    private String principal; // Керівник команди
-    private String carImage; // Фото боліда для віджету Top Team
+    private String principal;
+    private String carImage;
     private int championshipPoints;
 }

@@ -12,9 +12,8 @@ public class Driver {
     private String name;
     private int racingNumber;
     private int seasonPoints;
-    private String portraitUrl; // Фото пілота для віджету Top Driver
+    private String portraitUrl;
 
-    // Зв'язок: багато пілотів можуть належати до однієї команди
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;

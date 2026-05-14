@@ -10,7 +10,7 @@ public class Race {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String grandPrixName; // Наприклад: "Singapore Grand Prix"
+    private String grandPrixName;
     private String circuitName;
     private LocalDate startDate;
     private LocalDate endDate;

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Race Calendar 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<nav>
+    <div class="nav-logo">F1 <span>PULSE</span></div>
+    <ul class="nav-links">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/tickets}">Tickets</a></li>
+        <li><a th:href="@{/drivers}">Drivers</a></li>
+        <li><a th:href="@{/teams}">Teams</a></li>
+        <li><a th:href="@{/calendar}" class="active">Calendar</a></li>
+    </ul>
+    <div th:if="${session.loggedInUser == null}">
+        <a th:href="@{/signin}" class="btn-signin" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Sign In</a>
+    </div>
+
+    <div th:if="${session.loggedInUser != null}">
+        <a th:if="${session.loggedInUser.role == 'USER'}" th:href="@{/userprofile}" class="btn-signin" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background: #006F62; border-color: #006F62;">My Profile</a>
+
+        <a th:if="${session.loggedInUser.role == 'ADMIN'}" th:href="@{/adminprofile}" class="btn-signin" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background: #e10600; border-color: #e10600;">Admin Panel</a>
+    </div>
+</nav>
+
+<div class="page">
+    <h1 class="calendar-title">2026 FIA Formula One World Championship™ Race Calendar</h1>
+
+    <div class="top-row">
+
+        <div>
+            <div class="section-label">Previous</div>
+            <div class="race-card">
+                <div class="bg">
+                    <img th:src="@{/image/miami.avif}" alt="Miami Grand Prix">
+                </div>
+                <div class="overlay"></div>
+                <div class="round-badge">Round 4</div>
+                <div class="content">
+                    <div class="race-name">Miami</div>
+                    <div class="race-dates">01 – 03 May</div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="section-label label-next">Next</div>
+            <div class="race-card card-next">
+                <div class="bg">
+                    <img th:src="@{/image/canadagrandprix.avif}" alt="Canadian Grand Prix">
+                </div>
+                <div class="overlay"></div>
+                <div class="round-badge">Round 5</div>
+                <div class="content">
+                    <div class="race-name">Canada</div>
+                    <div class="race-dates">22 - 24 May</div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="section-label">Upcoming</div>
+            <div class="race-card">
+                <div class="bg">
+                    <img th:src="@{/image/monaco.avif}" alt="Monaco Grand Prix">
+                </div>
+                <div class="overlay"></div>
+                <div class="round-badge">Round 6</div>
+                <div class="content">
+                    <div class="race-name">Monaco</div>
+                    <div class="race-dates">05 - 07 Jun</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

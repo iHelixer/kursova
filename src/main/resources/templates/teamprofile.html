@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercedes — F1 Pulse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+    </style>
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}" class="nav-logo">F1 <span>PULSE</span></a>
+    <ul class="nav-links">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/tickets}">Tickets</a></li>
+        <li><a th:href="@{/drivers}">Drivers</a></li>
+        <li><a th:href="@{/teams}" class="active">Teams</a></li>
+        <li><a th:href="@{/calendar}">Calendar</a></li>
+    </ul>
+    <div th:if="${session.loggedInUser == null}">
+        <a th:href="@{/signin}" class="btn-signin" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Sign In</a>
+    </div>
+
+    <div th:if="${session.loggedInUser != null}">
+        <a th:if="${session.loggedInUser.role == 'USER'}" th:href="@{/userprofile}" class="btn-signin" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background: #006F62; border-color: #006F62;">My Profile</a>
+
+        <a th:if="${session.loggedInUser.role == 'ADMIN'}" th:href="@{/adminprofile}" class="btn-signin" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background: #e10600; border-color: #e10600;">Admin Panel</a>
+    </div>
+</nav>
+
+<div class="hero" id="teamHero">
+    <div class="hero-top" id="heroBg" style="background: linear-gradient(160deg, #00A19C 0%, #007D76 60%, #004D48 100%);">
+        <div class="car-area">
+            <div class="car-img-wrap">
+                <img th:src="@{/image/mercedes.avif}" alt="Фото боліда Mercedes">
+            </div>
+        </div>
+    </div>
+    <div class="hero-bar">
+        <div class="hero-name-row">
+            <span class="hero-slash">//</span>
+            <div class="hero-team-name" id="heroName">Mercedes</div>
+            <span class="hero-slash">//</span>
+        </div>
+        <div class="hero-drivers" id="heroDrivers">Georgre Russel &nbsp;|&nbsp; Kimi Antonelli</div>
+    </div>
+</div>
+
+<div class="profile-section">
+    <h3>Team Profile</h3>
+    <div class="profile-grid" id="profileGrid">
+        <div class="profile-item"><div class="pi-label">Full Team Name</div><div class="pi-value" id="pFullName">Mercedes-AMG PETRONAS Formula One Team</div></div>
+        <div class="profile-item"><div class="pi-label">Base</div><div class="pi-value" id="pBase">Brackley, United Kingdom</div></div>
+        <div class="profile-item"><div class="pi-label">Team Chief</div><div class="pi-value" id="pChief">Toto Wolff</div></div>
+        <div class="profile-item"><div class="pi-label">Technical Chief</div><div class="pi-value" id="pTech">James Allison</div></div>
+        <div class="profile-item"><div class="pi-label">Chassis</div><div class="pi-value" id="pChassis">W17</div></div>
+        <div class="profile-item"><div class="pi-label">Power Unit</div><div class="pi-value" id="pPower">Mercedes</div></div>
+        <div class="profile-item"><div class="pi-label">First Team Entry</div><div class="pi-value" id="pEntry">1970</div></div>
+        <div class="profile-item"><div class="pi-label">World Championships</div><div class="pi-value" id="pChamps" style="color:#e10600">8</div></div>
+    </div>
+</div>
+
+<div class="bottom-layout">
+    <div class="stats-dark">
+        <div class="season-label">Statistics</div>
+        <h2>2026 Season</h2>
+        <div class="sg">
+            <div class="si"><div class="si-label">Season Position</div><div class="si-val">1st</div></div>
+            <div class="si"><div class="si-label">Season Points</div><div class="si-val">180</div></div>
+            <div class="si"><div class="si-label">Grand Prix Races</div><div class="si-val">4</div></div>
+            <div class="si"><div class="si-label">Grand Prix Points</div><div class="si-val">160</div></div>
+            <div class="si"><div class="si-label">Grand Prix Wins</div><div class="si-val">4</div></div>
+            <div class="si"><div class="si-label">Grand Prix Podiums</div><div class="si-val">6</div></div>
+            <div class="si"><div class="si-label">Grand Prix Poles</div><div class="si-val">4</div></div>
+            <div class="si"><div class="si-label">Grand Prix Top 10s</div><div class="si-val">8</div></div>
+            <div class="si"><div class="si-label">DHL Fastest Laps</div><div class="si-val">0</div></div>
+            <div class="si"><div class="si-label">DNFs</div><div class="si-val">0</div></div>
+        </div>
+        <hr class="divl">
+        <div class="sg">
+            <div class="si"><div class="si-label">Sprint Races</div><div class="si-val">2</div></div>
+            <div class="si"><div class="si-label">Sprint Points</div><div class="si-val">20</div></div>
+            <div class="si"><div class="si-label">Sprint Wins</div><div class="si-val">1</div></div>
+            <div class="si"><div class="si-label">Sprint Podiums</div><div class="si-val">1</div></div>
+        </div>
+    </div>
+
+    <div class="summary-dark">
+        <h2>Team Summary</h2>
+        <div class="sum-row"><div class="sum-label">Grand Prix Entered</div><div class="sum-val">333</div></div>
+        <div class="sum-row"><div class="sum-label">Team Points</div><div class="sum-val">8339.5</div></div>
+        <div class="sum-row"><div class="sum-label">Highest Race Finish</div><div class="sum-val">1 (×126)</div></div>
+        <div class="sum-row"><div class="sum-label">Podiums</div><div class="sum-val">205</div></div>
+        <div class="sum-row"><div class="sum-label">Highest Grid Position</div><div class="sum-val">1 (×140)</div></div>
+        <div class="sum-row"><div class="sum-label">Pole Positions</div><div class="sum-val">139</div></div>
+        <div class="sum-row"><div class="sum-label">World Championships</div><div class="sum-val" style="color:#e10600">8</div></div>
+    </div>
+</div>
+
+<div class="bio-section">
+    <h3>Team History</h3>
+    <p id="bioText">Mercedes’ modern F1 revival started with the creation of a works squad for 2010 - the platform for a meteoric rise up the Grand Prix order. The team generated huge excitement from the off with the sensational return of Michael Schumacher, but headlines soon followed on track: three podiums in their debut season, all via Nico Rosberg - who then claimed a breakthrough pole/victory double at China in 2012.
+    </p>
+    <div class="bio-year">2026</div>
+    <p>The following season he was paired with Lewis Hamilton, the duo going on to stage some epic title battles as the Silver Arrows swept all before them to become one of the most dominant forces of the modern F1 era – until Red Bull came and stole that crown. Nevertheless, with proven race-winner George Russell now partnered by rising star Kimi Antonelli, Mercedes remain very much one of the teams to beat…
+    </p>
+</div>
+
+</body>
+</html>

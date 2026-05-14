@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Verstappen — F1 Pulse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+    </style>
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}" class="nav-logo">F1 <span>PULSE</span></a>
+    <ul class="nav-links">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/tickets}">Tickets</a></li>
+        <li><a th:href="@{/drivers}" class="active">Drivers</a></li>
+        <li><a th:href="@{/teams}">Teams</a></li>
+        <li><a th:href="@{/calendar}">Calendar</a></li>
+    </ul>
+    <div th:if="${session.loggedInUser == null}">
+        <a th:href="@{/signin}" class="btn-signin" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Sign In</a>
+    </div>
+
+    <div th:if="${session.loggedInUser != null}">
+        <a th:if="${session.loggedInUser.role == 'USER'}" th:href="@{/userprofile}" class="btn-signin" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background: #006F62; border-color: #006F62;">My Profile</a>
+
+        <a th:if="${session.loggedInUser.role == 'ADMIN'}" th:href="@{/adminprofile}" class="btn-signin" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background: #e10600; border-color: #e10600;">Admin Panel</a>
+    </div>
+</nav>
+
+<div class="hero" id="driverHero">
+    <div class="hero-bg-num" id="heroBgNum">1</div>
+    <div class="hero-info">
+        <div class="hero-lines">
+            <div class="hero-line"></div>
+            <div class="hero-line"></div>
+        </div>
+        <div class="driver-firstname" id="heroFirst">Max</div>
+        <div class="driver-lastname" id="heroLast">Verstappen</div>
+        <div class="driver-meta">
+            <span>🇳🇱 Netherlands</span>
+            <span class="sep">|</span>
+            <span id="heroTeam">Red Bull Racing</span>
+            <span class="sep">|</span>
+            <span id="heroNum">#1</span>
+        </div>
+    </div>
+    <div class="hero-photo">
+        <img th:src="@{/image/max.avif}" alt="Max Verstappen" id="heroPhoto">
+    </div>
+</div>
+
+<div class="stats-layout">
+
+    <div class="panel-dark">
+        <h2>2026 Season</h2>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-label">Season Position</div>
+                <div class="stat-value">7th</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Season Points</div>
+                <div class="stat-value">26</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Grand Prix Races</div>
+                <div class="stat-value">4</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Grand Prix Points</div>
+                <div class="stat-value">22</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Grand Prix Wins</div>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Grand Prix Podiums</div>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Grand Prix Poles</div>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Grand Prix Top 10s</div>
+                <div class="stat-value">3</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">DHL Fastest Laps</div>
+                <div class="stat-value">1</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">DNFs</div>
+                <div class="stat-value">1</div>
+            </div>
+        </div>
+
+        <hr class="divider-line">
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-label">Sprint Races</div>
+                <div class="stat-value">2</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Sprint Points</div>
+                <div class="stat-value">4</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Sprint Wins</div>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Sprint Podiums</div>
+                <div class="stat-value">0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-dark2">
+        <h2>Career Stats</h2>
+        <div class="career-row">
+            <div class="career-label">Grand Prix Entered</div>
+            <div class="career-value">263</div>
+        </div>
+        <div class="career-row">
+            <div class="career-label">Career Points</div>
+            <div class="career-value">3470.5</div>
+        </div>
+        <div class="career-row">
+            <div class="career-label">Highest Race Finish</div>
+            <div class="career-value">1 (×71)</div>
+        </div>
+        <div class="career-row">
+            <div class="career-label">Podiums</div>
+            <div class="career-value">145</div>
+        </div>
+        <div class="career-row">
+            <div class="career-label">Highest Grid Position</div>
+            <div class="career-value">1 (×48)</div>
+        </div>
+        <div class="career-row">
+            <div class="career-label">Pole Positions</div>
+            <div class="career-value">58</div>
+        </div>
+        <div class="career-row">
+            <div class="career-label">World Championships</div>
+            <div class="career-value" style="color:#e10600">4</div>
+        </div>
+    </div>
+
+</div>
+
+<div class="bottom-layout">
+
+    <div class="bio-panel">
+        <h3>Biography</h3>
+        <p>Arriving as Formula 1's youngest ever competitor at just 17 years old, Verstappen pushed his car, his rivals and the sport's record books to the limit.</p>
+        <p>The baby-faced Dutchman with the heart of a lion took the Toro Rosso – and then the Red Bull – by the horns with his instinctive racing style. F1's youngest points scorer soon became its youngest race winner – at the age of 18 years and 228 days – with an opportunistic but controlled drive on debut for Red Bull in Barcelona 2016.</p>
+        <p>Having become the Netherlands' first world champion aged just 24, the expectations only grew. He delivered again in 2022 and 2023, asserting total dominance over the field, and became the first driver since Michael Schumacher to win four consecutive championships in 2024.</p>
+        <p>Widely regarded as the greatest driver of his generation, Verstappen continues to rewrite the record books with Red Bull Racing.</p>
+    </div>
+
+    <div class="info-panel">
+        <h3>Personal Info</h3>
+        <div class="info-row">
+            <span class="ilabel">Date of Birth</span>
+            <span class="ivalue">30 September 1997</span>
+        </div>
+        <div class="info-row">
+            <span class="ilabel">Place of Birth</span>
+            <span class="ivalue">Hasselt, Belgium</span>
+        </div>
+        <div class="info-row">
+            <span class="ilabel">Nationality</span>
+            <span class="ivalue">🇳🇱 Dutch</span>
+        </div>
+        <div class="info-row">
+            <span class="ilabel">Car Number</span>
+            <span class="ivalue">#1</span>
+        </div>
+        <div class="info-row">
+            <span class="ilabel">Team</span>
+            <span class="ivalue">Red Bull Racing</span>
+        </div>
+        <div class="info-row">
+            <span class="ilabel">First Season</span>
+            <span class="ivalue">2015</span>
+        </div>
+        <div class="info-row">
+            <span class="ilabel">First Race</span>
+            <span class="ivalue">Australian GP 2015</span>
+        </div>
+        <div class="info-row">
+            <span class="ilabel">First Win</span>
+            <span class="ivalue">Spanish GP 2016</span>
+        </div>
+        <div class="info-row">
+            <span class="ilabel">Championships</span>
+            <span class="ivalue" style="color:#e10600;font-size:16px">4x(2021–2024)</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    document.querySelectorAll('.dstrip-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.dstrip-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const d = drivers[btn.textContent.trim()];
+        if (!d) return;
+        document.getElementById('driverHero').style.background = d.color;
+        document.getElementById('heroFirst').textContent = d.first;
+        document.getElementById('heroLast').textContent = d.last;
+        document.getElementById('heroTeam').textContent = d.team;
+        document.getElementById('heroNum').textContent = '#' + d.num;
+        document.getElementById('heroBgNum').textContent = d.num;
+      });
+    });
+
+    // Tab switching
+    document.querySelectorAll('.dtab').forEach((tab, i) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.dtab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+</script>
+</body>
+</html>

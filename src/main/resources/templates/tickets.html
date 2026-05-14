@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Tickets — Canadian Grand Prix</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-logo">F1 <span>PULSE</span></div>
+    <ul class="nav-links">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/tickets}" class="active">Tickets</a></li>
+        <li><a th:href="@{/drivers}">Drivers</a></li>
+        <li><a th:href="@{/teams}">Teams</a></li>
+        <li><a th:href="@{/calendar}">Calendar</a></li>
+    </ul>
+    <div th:if="${session.loggedInUser == null}">
+        <a th:href="@{/signin}" class="btn-signin" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Sign In</a>
+    </div>
+
+    <div th:if="${session.loggedInUser != null}">
+        <a th:if="${session.loggedInUser.role == 'USER'}" th:href="@{/userprofile}" class="btn-signin" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background: #006F62; border-color: #006F62;">My Profile</a>
+
+        <a th:if="${session.loggedInUser.role == 'ADMIN'}" th:href="@{/adminprofile}" class="btn-signin" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background: #e10600; border-color: #e10600;">Admin Panel</a>
+    </div>
+</nav>
+
+<div class="page-header">
+    <h1>🇨🇦 Canadian Grand Prix 2026</h1>
+    <div class="sub">Circuit Gilles Villeneuve · Montréal · 22–24 May 2026</div>
+</div>
+
+<div class="race-selector">
+    <button class="race-tab">🇦🇺 Australia</button>
+    <button class="race-tab">🇨🇳 China</button>
+    <button class="race-tab">🇯🇵 Japan</button>
+    <button class="race-tab">🇺🇸 Miami</button>
+    <button class="race-tab active">🇨🇦 Canada</button>
+    <button class="race-tab">🇲🇨 Monaco</button>
+    <button class="race-tab">🇪🇸 Barcelona</button>
+    <button class="race-tab">🇦🇹 Austria</button>
+    <button class="race-tab">🇬🇧 Great Britain</button>
+    <button class="race-tab">🇧🇬 Belgium</button>
+    <button class="race-tab">🇮🇹 Italy</button>
+</div>
+
+<div class="split">
+
+    <div class="ticket-list">
+        <div class="list-title">Available Tickets — Canada GP</div>
+
+        <div class="ticket-item">
+            <div class="ticket-left">
+                <div class="ticket-name">Paddock Club</div>
+                <div class="ticket-days" style="color: #e10600; font-weight: 600; font-size: 13px; margin-bottom: 6px;">Friday – Sunday</div>
+                <div class="ticket-desc">Exclusive VIP access to the Paddock. Gourmet catering, pit lane walk & paddock access included.</div>
+            </div>
+            <div class="ticket-right">
+                <div class="ticket-price">7 339,70 €</div>
+                <form th:action="@{/buy-ticket}" method="post" style="margin: 0; padding: 0;">
+                    <input type="hidden" name="raceName" value="Canadian Grand Prix">
+                    <input type="hidden" name="round" value="Round 05">
+                    <input type="hidden" name="dateRange" value="22–24 May 2026">
+                    <input type="hidden" name="venue" value="Circuit Gilles Villeneuve">
+                    <input type="hidden" name="category" value="Paddock Club">
+                    <input type="hidden" name="price" value="7 339,70 €">
+                    <input type="hidden" name="flag" value="🇨🇦">
+
+                    <button type="submit" class="btn-goto">
+                        BUY
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="ticket-item">
+            <div class="ticket-left">
+                <div class="ticket-name">Elite Club</div>
+                <div class="ticket-days" style="color: #e10600; font-weight: 600; font-size: 13px; margin-bottom: 6px;">Friday – Sunday</div>
+                <div class="ticket-desc">Premium hospitality suite with panoramic views of the main straight and start/finish line.</div>
+            </div>
+            <div class="ticket-right">
+                <div class="ticket-from">From</div>
+                <div class="ticket-price">4 373,64 €</div>
+                <form th:action="@{/buy-ticket}" method="post" style="margin: 0; padding: 0;">
+                    <input type="hidden" name="raceName" value="Canadian Grand Prix">
+                    <input type="hidden" name="round" value="Round 05">
+                    <input type="hidden" name="dateRange" value="22–24 May 2026">
+                    <input type="hidden" name="venue" value="Circuit Gilles Villeneuve">
+                    <input type="hidden" name="category" value="Elite Club">
+                    <input type="hidden" name="price" value="4 373,64 €">
+                    <input type="hidden" name="flag" value="🇨🇦">
+
+                    <button type="submit" class="btn-goto">
+                        BUY
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="ticket-item">
+            <div class="ticket-left">
+                <div class="ticket-name">Cosmos Club</div>
+                <div class="ticket-days" style="color: #e10600; font-weight: 600; font-size: 13px; margin-bottom: 6px;">Friday – Sunday</div>
+                <div class="ticket-desc">Covered grandstand with hospitality package. Ideal views of turns 1-3 and pit entry.</div>
+            </div>
+            <div class="ticket-right">
+                <div class="ticket-from">From</div>
+                <div class="ticket-price">3 234,18 €</div>
+                <form th:action="@{/buy-ticket}" method="post" style="margin: 0; padding: 0;">
+                    <input type="hidden" name="raceName" value="Canadian Grand Prix">
+                    <input type="hidden" name="round" value="Round 05">
+                    <input type="hidden" name="dateRange" value="22–24 May 2026">
+                    <input type="hidden" name="venue" value="Circuit Gilles Villeneuve">
+                    <input type="hidden" name="category" value="Cosmos Club">
+                    <input type="hidden" name="price" value="3 234,18 €">
+                    <input type="hidden" name="flag" value="🇨🇦">
+
+                    <button type="submit" class="btn-goto">
+                        BUY
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="ticket-item">
+            <div class="ticket-left">
+                <div class="ticket-name">Podium Club</div>
+                <div class="ticket-days" style="color: #e10600; font-weight: 600; font-size: 13px; margin-bottom: 6px;">Friday – Sunday</div>
+                <div class="ticket-desc">Grandstand with direct view of the podium ceremony and pit lane. Catering included.</div>
+            </div>
+            <div class="ticket-right">
+                <div class="ticket-from">From</div>
+                <div class="ticket-price">3 184,23 €</div>
+                <form th:action="@{/buy-ticket}" method="post" style="margin: 0; padding: 0;">
+                    <input type="hidden" name="raceName" value="Canadian Grand Prix">
+                    <input type="hidden" name="round" value="Round 05">
+                    <input type="hidden" name="dateRange" value="22–24 May 2026">
+                    <input type="hidden" name="venue" value="Circuit Gilles Villeneuve">
+                    <input type="hidden" name="category" value="Podium Club">
+                    <input type="hidden" name="price" value="3 184,23 €">
+                    <input type="hidden" name="flag" value="🇨🇦">
+
+                    <button type="submit" class="btn-goto">
+                        BUY
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="ticket-item">
+            <div class="ticket-left">
+                <div class="ticket-name">Grandstand 15</div>
+                <div class="ticket-days" style="color: #e10600; font-weight: 600; font-size: 13px; margin-bottom: 6px;">Saturday – Sunday</div>
+                <div class="ticket-desc">Open grandstand at the iconic hairpin. One of the best overtaking spots on the circuit.</div>
+            </div>
+            <div class="ticket-right">
+                <div class="ticket-from">From</div>
+                <div class="ticket-price">389,00 €</div>
+                <form th:action="@{/buy-ticket}" method="post" style="margin: 0; padding: 0;">
+                    <input type="hidden" name="raceName" value="Canadian Grand Prix">
+                    <input type="hidden" name="round" value="Round 05">
+                    <input type="hidden" name="dateRange" value="22–24 May 2026">
+                    <input type="hidden" name="venue" value="Circuit Gilles Villeneuve">
+                    <input type="hidden" name="category" value="Grandstand 15">
+                    <input type="hidden" name="price" value="389,00 €">
+                    <input type="hidden" name="flag" value="🇨🇦">
+
+                    <button type="submit" class="btn-goto">
+                        BUY
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="ticket-item">
+            <div class="ticket-left">
+                <div class="ticket-name">Grandstand 24</div>
+                <div class="ticket-days" style="color: #e10600; font-weight: 600; font-size: 13px; margin-bottom: 6px;">Sunday Only</div>
+                <div class="ticket-desc">Budget-friendly option with great sightlines of the back section of the circuit.</div>
+            </div>
+            <div class="ticket-right">
+                <div class="ticket-from">From</div>
+                <div class="ticket-price">199,00 €</div>
+                <form th:action="@{/buy-ticket}" method="post" style="margin: 0; padding: 0;">
+                    <input type="hidden" name="raceName" value="Canadian Grand Prix">
+                    <input type="hidden" name="round" value="Round 05">
+                    <input type="hidden" name="dateRange" value="22–24 May 2026">
+                    <input type="hidden" name="venue" value="Circuit Gilles Villeneuve">
+                    <input type="hidden" name="category" value="Grandstand 24">
+                    <input type="hidden" name="price" value="199,00 €">
+                    <input type="hidden" name="flag" value="🇨🇦">
+
+                    <button type="submit" class="btn-goto">
+                        BUY
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div> <div class="track-panel">
+    <div class="track-title">Circuit Gilles Villeneuve Map</div>
+    <div class="track-img-wrap">
+        <img th:src="@{/image/canadatrack.avif}" alt="Circuit Gilles Villeneuve Map">
+    </div>
+</div>
+
+</div> </body>
+</html>

@@ -15,6 +15,6 @@ public class News {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private String imageUrl; // Посилання на картинку новини
+    private String imageUrl;
     private LocalDate publishedDate;
 }

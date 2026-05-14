@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile — F1 Pulse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+    </style>
+</head>
+<body>
+
+<nav>
+    <a th:href="@{/}" class="nav-logo">F1 <span>PULSE</span></a>
+    <ul class="nav-links">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/tickets}">Tickets</a></li>
+        <li><a th:href="@{/drivers}">Drivers</a></li>
+        <li><a th:href="@{/teams}">Teams</a></li>
+        <li><a th:href="@{/calendar}">Calendar</a></li>
+    </ul>
+    <a th:href="@{/logout}" class="btn-signout" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">Sign Out</a>
+</nav>
+
+<div class="layout">
+
+    <div class="sidebar">
+        <div class="user-card">
+            <div class="user-card-top">
+                <div class="avatar" th:text="${#strings.toUpperCase(#strings.substring(user.firstName,0,1) + #strings.substring(user.lastName,0,1))}"></div>
+
+                <div class="user-name" th:text="${user.firstName + ' ' + user.lastName}"></div>
+
+                <div class="user-email" th:text="${user.email}"></div>
+
+                <div class="member-badge">F1 Member</div>
+            </div>
+            <div class="user-card-body">
+                <div class="user-stat-row">
+                    <span class="us-label">Member since</span>
+                    <span class="us-value">Jan 2024</span>
+                </div>
+                <div class="user-stat-row">
+                    <span class="us-label">Tickets bought</span>
+                    <span class="us-value">4</span>
+                </div>
+                <div class="user-stat-row">
+                    <span class="us-label">Races attended</span>
+                    <span class="us-value">2</span>
+                </div>
+                <div class="user-stat-row">
+                    <span class="us-label">Favourite driver</span>
+                    <span class="us-value">M. Verstappen 🇳🇱</span>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="main" id="mainContent">
+
+        <div class="summary-row">
+            <div class="sum-card">
+                <div class="sc-label">Total Tickets</div>
+                <div class="sc-val" th:text="${totalTickets}">0</div>
+                <div class="sc-sub" th:text="'across ' + ${uniqueEvents} + ' events'">across 0 events</div>
+            </div>
+
+            <div class="sum-card">
+                <div class="sc-label">Upcoming Races</div>
+                <div class="sc-val" th:text="${uniqueEvents}">0</div>
+                <div class="sc-sub" th:text="${totalTickets > 0 ? 'next: ' + tickets[0].raceName : 'no upcoming races'}">next: None</div>
+            </div>
+
+            <div class="sum-card">
+                <div class="sc-label">Total Spent</div>
+                <div class="sc-val" th:text="${totalSpent}">€ 0</div>
+                <div class="sc-sub">this season</div>
+            </div>
+        </div>
+
+        <div class="page-hdr">
+            <div>
+                <h1>My Tickets</h1>
+                <div class="sub">All purchased tickets for the 2026 season</div>
+            </div>
+            <a th:href="@{/tickets}" class="btn-buy">+ Buy Tickets</a>
+        </div>
+
+
+        <div id="ticketsList">
+
+            <div th:if="${#lists.isEmpty(tickets)}" style="text-align: center; padding: 40px; color: #888;">
+                You haven't purchased any tickets yet. <br><br>
+                <a th:href="@{/tickets}" class="btn-buy" style="display:inline-block;">Browse Tickets</a>
+            </div>
+
+            <div class="ticket-card" style="margin-bottom:12px" th:each="t : ${tickets}">
+                <div class="ticket-strip" style="background:#006F62"></div>
+                <div class="ticket-body">
+
+                    <div class="ticket-top" style="display: flex; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <span class="ticket-flag" th:text="${t.flag}">🇨🇦</span>
+                            <div>
+                                <div class="ticket-round" th:text="${t.round}">Round 05</div>
+                                <div class="ticket-race" th:text="${t.raceName}">Canadian Grand Prix</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="status-badge status-upcoming" style="background: #fff8e0; color: #b07800;">Purchased</span>
+
+                            <form th:action="@{/delete-ticket}" method="post" style="margin: 0; padding: 0;">
+                                <input type="hidden" name="ticketId" th:value="${t.id}">
+                                <button type="submit" title="Cancel Ticket" style="background: none; border: none; cursor: pointer; color: #aaa; transition: color 0.2s; display: flex; align-items: center; padding: 5px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="ticket-details">
+                        <div class="td-item"><div class="td-label">Date</div><div class="td-value" th:text="${t.dateRange}">22-24 May 2026</div></div>
+                        <div class="td-item"><div class="td-label">Venue</div><div class="td-value" th:text="${t.venue}">Circuit Gilles Villeneuve</div></div>
+                        <div class="td-item"><div class="td-label">Category</div><div class="td-value" th:text="${t.category}">Grandstand 15</div></div>
+                        <div class="td-item"><div class="td-label">Price</div><div class="td-value" th:text="${t.price}">€ 389</div></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
